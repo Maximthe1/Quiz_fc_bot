@@ -54,3 +54,25 @@ quest_5 = InlineKeyboardMarkup(
 		]
 	]
 )
+
+
+quest_6 = InlineKeyboardMarkup(
+	inline_keyboard=[
+		[
+			InlineKeyboardButton(text="Маленькое черное платье", callback_data="61"),
+			InlineKeyboardButton(text="Шелковый шарф", callback_data="62"),
+			InlineKeyboardButton(text="Шляпка", callback_data="63"),
+		]
+	]
+)
+
+
+quest_7 = InlineKeyboardMarkup(
+	inline_keyboard=[
+		[
+			InlineKeyboardButton(text="Эльза", callback_data="71"),
+			InlineKeyboardButton(text="Рапунцель", callback_data="72"),
+			InlineKeyboardButton(text="Моана", callback_data="73"),
+		]
+	]
+)

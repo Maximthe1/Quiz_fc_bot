@@ -3,7 +3,7 @@ from aiogram import Router, F, types
 from aiogram.filters import Command
 
 from app.keyboards.main_kb import del_kb, start_kb
-from app.keyboards.quest_kb import quest_1, quest_2, quest_3, quest_4, quest_5
+from app.keyboards.quest_kb import quest_1, quest_2, quest_3, quest_4, quest_5, quest_6, quest_7
 
 
 questrt = Router()
@@ -12,7 +12,6 @@ questrt = Router()
 count = 0
 @questrt.message(F.text == "Начать викторину")
 async def start_quiz(message: types.Message):
-	await message.answer("Тема викторины 8 марта", reply_markup=del_kb)
 	await message.answer("1. Кто из этих женщин первой отправился в космос?", reply_markup=quest_1)
 
 
@@ -82,13 +81,43 @@ async def answer_1(call: types.CallbackQuery):
 	count += 1
 	await call.answer("Правильно!")
 	print(count)
-	await call.message.answer(f"Молодец ты ответил правильно на {count}/5 вопросов", reply_markup=start_kb)
+	await call.message.answer(f"6. Что по мнению Коко Шанель должно быть в гардеробе каждой женщины?", reply_markup=quest_6)
  
  
 @questrt.callback_query((F.data == "52") | (F.data == "51"))
 async def answer_foll(call: types.CallbackQuery):
 	await call.answer("Неправильно в следующий раз получится!")
-	await call.message.answer(f"Молодец ты ответил правильно на {count}/5 вопросов",reply_markup=start_kb)
+	await call.message.answer(f"6. Что по мнению Коко Шанель должно быть в гардеробе каждой женщины?",reply_markup=quest_6)
+ 
+ 
+@questrt.callback_query(F.data == "61")
+async def answer_1(call: types.CallbackQuery):
+	global count
+	count += 1
+	await call.answer("Правильно!")
+	print(count)
+	await call.message.answer(f"7. Какая героиня мультфильма жила на острове Мотануи в Тихом океане?", reply_markup=quest_7)
+ 
+ 
+@questrt.callback_query((F.data == "62") | (F.data == "63"))
+async def answer_foll(call: types.CallbackQuery):
+	await call.answer("Неправильно в следующий раз получится!")
+	await call.message.answer(f"7. Какая героиня мультфильма жила на острове Мотануи в Тихом океане?",reply_markup=quest_7)
+ 
+ 
+@questrt.callback_query(F.data == "73")
+async def answer_1(call: types.CallbackQuery):
+	global count
+	count += 1
+	await call.answer("Правильно!")
+	print(count)
+	await call.message.answer(f"Молодец ты ответил правильно на {count}/7 вопросов", reply_markup=start_kb)
+ 
+ 
+@questrt.callback_query((F.data == "72") | (F.data == "71"))
+async def answer_foll(call: types.CallbackQuery):
+	await call.answer("Неправильно в следующий раз получится!")
+	await call.message.answer(f"Молодец ты ответил правильно на {count}/7 вопросов",reply_markup=start_kb)
  
 
 @questrt.message(F.text == "Мои результаты")
@@ -96,4 +125,4 @@ async def results(message: types.Message):
 	if count == 0:
 		await message.answer(f"У вас {count} правильных ответов возможно вы  еще не прошли викторину")
 	else:
-		await message.answer(f"Твои результаты: {count} правильных ответов из 5", reply_markup=start_kb)
+		await message.answer(f"Твои результаты: {count} правильных ответов из 7", reply_markup=start_kb)
